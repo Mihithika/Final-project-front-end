@@ -32,12 +32,21 @@ const CreateTicket: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log(formData);
+    fetch("http://localhost:8080/api/admin/create-listing",{
+      method:"POST",
+      headers:{"Content-Type":"application.json"},
+      body:JSON.stringify(formData)
+    }).then(()=>{
+      console.log("New Listing Added");
+      
+    })
+    
     // TODO: handle form submission (e.g., POST to API)
   };
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold text-black mb-6">Create Event</h1>
+      <h1 className="text-3xl font-bold text-black mb-6">Create Listing</h1>
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
         {/* Title */}
@@ -46,7 +55,7 @@ const CreateTicket: React.FC = () => {
             type="text"
             id="title"
             name="title"
-            placeholder="Event Title"
+            placeholder="Listing Title"
             value={formData.title}
             onChange={handleChange}
             className="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#8c0327] focus:ring-[#8c0327] focus:ring-opacity-50 p-2"
@@ -64,11 +73,10 @@ const CreateTicket: React.FC = () => {
             className="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#8c0327] focus:ring-[#8c0327] focus:ring-opacity-50 p-2"
             style={{ backgroundColor: '#f6f6f6' }}
           >
-            <option value="">Select a category</option>
-            <option>Music</option>
-            <option>Sports</option>
-            <option>Arts</option>
-            <option>Technology</option>
+            <option value="">Select Gender</option>
+            <option>FeMale</option>
+            <option>Male</option>
+     
           </select>
         </div>
 
@@ -81,7 +89,7 @@ const CreateTicket: React.FC = () => {
               rows={3}
               value={formData.description}
               onChange={handleChange}
-              placeholder="Event Description"
+              placeholder="Description"
               className="block w-full h-48 rounded-md border-gray-300 shadow-sm focus:border-[#8c0327] focus:ring-[#8c0327] focus:ring-opacity-50 p-2"
               style={{ backgroundColor: '#f6f6f6' }}
             ></textarea>
@@ -216,9 +224,9 @@ const CreateTicket: React.FC = () => {
               className="block w-full h-12 rounded-md border-gray-300 shadow-sm focus:border-[#8c0327] focus:ring-[#8c0327] focus:ring-opacity-50"
               style={{ backgroundColor: '#f6f6f6', padding: 0 }}
             >
-              <option value="">Select Status</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
+              <option value="">Select Availability</option>
+              <option value="active">Available</option>
+              <option value="inactive">Unavailable</option>
             </select>
           </div>
           <input
@@ -239,7 +247,7 @@ const CreateTicket: React.FC = () => {
             type="submit"
             className="block w-full bg-[#8c0327] hover:bg-[#6b0220] text-white font-bold py-3 px-4 rounded-full"
           >
-            Register for Event
+            Create Listing
           </button>
         </div>
       </form>
